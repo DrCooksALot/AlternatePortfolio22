@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eli Nass - Portfolio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            --foreground-rgb: 240, 240, 240;
+            --background-start-rgb: 26, 26, 26;
+            --background-end-rgb: 26, 26, 26;
+        }
+
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .header {
+            background: #2a2a2a;
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .nav-list {
+            display: flex;
+            justify-content: center;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .nav-list li {
+            margin: 0 1rem;
+        }
+
+        .nav-list li a {
+            color: #f0f0f0;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .nav-list li a:hover {
+            color: #a0a0a0;
+        }
+
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            background-color: #2a2a2a;
+            border: 2px solid #808080;
+            border-radius: 10px;
+            padding: 30px;
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 2rem;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .tagline {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .employment-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .looking-for-work {
+            display: flex;
+            align-items: center;
+            margin-left: 0.5rem;
+            color: #4CAF50;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+            margin-left: 0.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+            }
+            
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+            }
+            
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+            }
+        }
+
+        .tab-container {
+            width: 100%;
+            margin-top: 1.5rem;
+        }
+
+        .tab-buttons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            color: #f0f0f0;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0 15px;
+            padding: 5px 10px;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .tab-button.active {
+            border-bottom-color: #a0a0a0;
+        }
+
+        .tab-content {
+            text-align: left;
+        }
+
+        .tab-content h3 {
+            font-size: 2rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .tab-content p {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .skill-card {
+            background-color: #3a3a3a;
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #4CAF50;
+        }
+
+        .expand-button {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: #f0f0f0;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .expand-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .expanded-skill-card {
+            background-color: #3a3a3a;
+            border-radius: 10px;
+            padding: 4rem 2rem 2rem;
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .expanded-skill-card .skill-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .expanded-skill-card h4 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .expanded-skill-card p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: none;
+            border: none;
+            color: #f0f0f0;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .ventures-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .venture-card {
+            background-color: #3a3a3a;
+            border-radius: 10px;
+            padding: 2rem;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .venture-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .venture-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #4CAF50;
+        }
+
+        .venture-card h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .venture-card p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .expanded-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, margin-top 0.3s ease-out, padding-top 0.3s ease-out;
+        }
+
+        .expanded-content.expanded {
+            max-height: 1000px;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #808080;
+        }
+
+        .projects-table, .blog-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+
+        .projects-table th, .projects-table td,
+        .blog-table th, .blog-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #808080;
+        }
+
+        .projects-table th, .blog-table th {
+            font-weight: 600;
+            background-color: #3a3a3a;
+        }
+
+        .projects-table tr:last-child td,
+        .blog-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .empty-message {
+            text-align: center;
+            font-style: italic;
+            margin-top: 2rem;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 0.5rem;
+            border-radius: 5px;
+            border: 1px solid #808080;
+            background-color: #3a3a3a;
+            color: #f0f0f0;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-button {
+            padding: 0.75rem 1.5rem;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #2a2a2a;
+            margin-top: 40px;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .nav-list {
+                flex-wrap: wrap;
+            }
+            
+            .nav-list li {
+                margin: 0.5rem;
+            }
+
+            .content h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+
+            .tab-buttons {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                margin: 5px 0;
+            }
+
+            .content h1 {
+                font-size: 2rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav>
+            <ul class="nav-list">
+                <li><a href="#" data-page="home">Home</a></li>
+                <li><a href="#" data-page="ventures">Ventures++</a></li>
+                <li><a href="#" data-page="projects">Projects</a></li>
+                <li><a href="#" data-page="blog">Blog</a></li>
+                <li><a href="#" data-page="contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main">
+        <section id="home" class="container">
+            <div class="content">
+                <h1>Eli Nass</h1>
+                <p class="tagline">Scientist with a passion for making things</p>
+                <div class="employment-status">
+                    <span>Employed Part-Time:</span>
+                    <span class="looking-for-work">
+                        Looking for new work!
+                        <span class="status-dot"></span>
+                    </span>
+                </div>
+                <div class="tab-container">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" data-tab="about">About</button>
+                        <button class="tab-button" data-tab="skills">Skills</button>
+                    </div>
+                    <div class="tab-content">
+                        <div id="about-content">
+                            <h3>About Me</h3>
+                            <p>I am Eli Nass, a multifaceted scientist and entrepreneur with a passion for combining creativity and rigor to build impactful projects, businesses, and communities.</p>
+                            <p>My journey spans diverse fields, blending scientific rigor with creative problem-solving to turn ideas into reality. From developing innovative farming systems to crafting custom recipes and building digital content, I've embraced a variety of skills to grow side hustles into legitimate ventures. Whether I'm working part-time as a teacher, freelancing, or scaling my projects into full-fledged businesses, I thrive on learning, building, and creating communities that reflect my passions.</p>
+                            <p>I'm passionate about urban farming, innovative technologies, and plant-based medicine. I enjoy creating spaces for learning and collaboration, whether it's through consulting, building tools, or fostering community-driven projects. Exploring new challenges and turning ideas into action keeps me inspired.</p>
+                        </div>
+                        <div id="skills-content" style="display: none;">
+                            <h3>Skills & Expertise</h3>
+                            <div class="skills-grid" id="skills-grid"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ventures" class="container" style="display: none;">
+            <div class="content">
+                <h1>Ventures++</h1>
+                <p class="tagline">Innovative projects and businesses I'm passionate about</p>
+                <div class="ventures-grid" id="ventures-grid"></div>
+            </div>
+        </section>
+
+        <section id="projects" class="container" style="display: none;">
+            <div class="content">
+                <h1>Projects</h1>
+                <p class="tagline">A showcase of my various projects and experiments</p>
+                <table class="projects-table">
+                    <thead>
+                        <tr>
+                            <th>Project Name</th>
+                            <th>Description</th>
+                            <th>Technologies</th>
+                        </tr>
+                    </thead>
+                    <tbody id="projects-table-body">
+                        <tr>
+                            <td colspan="3" class="empty-message">No projects to display yet. Check back soon!</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="blog" class="container" style="display: none;">
+            <div class="content">
+                <h1>Blog</h1>
+                <p class="tagline">Here's a collection of my thoughts turned blog posts that never made it into projects!</p>
+                <table class="blog-table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Date</th>
+                            <th>Tags</th>
+                        </tr>
+                    </thead>
+                    <tbody id="blog-table-body">
+                        <tr>
+                            <td colspan="3" class="empty-message">No blog posts yet. Check back soon!</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="contact" class="container" style="display: none;">
+            <div class="content">
+                <h1>Contact Me</h1>
+                <p class="tagline">Have a question or want to work together? Get in touch!</p>
+                <form id="contact-form" class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 Eli Nass. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const skills = [
+            { 
+                title: "Programming",
+                icon: "💻",
+                shortDescription: "Developed a strong foundation in core programming concepts across multiple languages and frameworks.",
+                fullDescription: "I've worked extensively with core programming concepts across multiple languages, including Python, Java, HTML, CSS, and JavaScript, alongside frameworks like EJS, Node.js, and Next.js. I've also explored MicroPython and Arduino code for embedded systems, completing hands-on projects that span various industries."
+            },
+            { 
+                title: "Embedded Systems",
+                icon: "🔌",
+                shortDescription: "Design and implement lightweight, low-cost sensor systems and embedded devices for innovative applications.",
+                fullDescription: "I've designed and implemented lightweight, low-cost sensor systems using Arduino, ESP32, and other embedded devices. In urban farming, I built systems to automate data collection and record-keeping. While working in property management, I developed remote-controlled devices to manage utilities and maintenance in non-standardized environments, including creating hardware solutions in resource-constrained settings. As a personal hobby, I enjoy building nostalgic devices inspired by retro gaming."
+            },
+            { 
+                title: "Property Management",
+                icon: "🏢",
+                shortDescription: "Managed logistics, maintenance, tenant relations, and emergency situations for properties in Panama.",
+                fullDescription: "While working for a property management company in Panama, I handled a wide range of responsibilities. From creating bilingual advertisements to managing tenant relations and logistics, I acted as a Swiss Army knife for the company's needs. My bilingual skills enabled me to bridge language gaps between workers and clients. I also assisted with on-site emergencies, standardized operating procedures, and logistics for company scaling. Additionally, I ensured the protection of company assets and helped streamline processes."
+            },
+            { 
+                title: "Digital Content Creation",
+                icon: "🎥",
+                shortDescription: "Create promotional videos, graphics, and pitch decks for brands and businesses.",
+                fullDescription: "I create compelling digital content for brands and businesses, ranging from promotional videos and flyers to pitch decks and highlight reels. My expertise spans multimedia formats, including short and long-form content, ensuring high-quality results tailored to each client's needs."
+            },
+            { 
+                title: "Web Development",
+                icon: "🌐",
+                shortDescription: "Develop lightweight, tailored websites and web applications for small businesses.",
+                fullDescription: "I specialize in lightweight, easily manageable web projects and work with small businesses to develop custom websites and applications. Using technologies like HTML, CSS, JavaScript, Node.js, and Next.js, I deliver efficient, fast-to-deploy platforms that empower my clients to take control of their digital presence."
+            },
+            { 
+                title: "Product and Packaging Design",
+                icon: "📦",
+                shortDescription: "Prototype and design minimal viable product packaging with tools like 3D printers and die cutters.",
+                fullDescription: "From concept to prototype, I design and create packaging that elevates products. Using tools like 3D printers and die cutters, I help businesses achieve their vision without requiring high minimum order quantities. My focus is on creating functional, visually appealing designs that resonate with consumers."
+            },
+            { 
+                title: "Recipe Formulation",
+                icon: "🧪",
+                shortDescription: "Craft unique formulas for plant-based products, including tinctures, gummies, and salves.",
+                fullDescription: "With a deep understanding of plant-based medicine and natural solutions, I've crafted hundreds of formulas for tinctures, gummies, salves, and sprays. Each recipe is tailored to specific use cases, ensuring the desired effects and functionality for clients looking to enter or expand in the natural products market."
+            },
+            { 
+                title: "Urban Farming",
+                icon: "🌱",
+                shortDescription: "Directed New York Farming at an agtech startup, pioneering innovative indoor microalgae farming systems.",
+                fullDescription: "As the Director of New York Farming at an agtech startup, I managed an indoor spirulina farm—one of the few in operation year-round. I built custom bioreactors, designed efficient systems for solo operation, and developed software to streamline record-keeping and farm management. My hands-on approach combined innovation and practicality, making urban farming more accessible and efficient."
+            }
+        ];
+
+        const ventures = [
+            {
+                title: "Algae Growing Consult",
+                icon: "🌿",
+                description: "Expert consultation services for algae cultivation, focusing on sustainable and efficient growing techniques.",
+                fullDescription: "Algae Growing Consult offers specialized consultation services for individuals, businesses, and organizations interested in algae cultivation. Our team of experts provides comprehensive guidance on setting up and optimizing algae growing systems, with a focus on sustainable practices and efficient production methods. We cover various aspects of algae cultivation, including species selection, growth conditions, harvesting techniques, and potential applications in industries such as food, pharmaceuticals, and biofuels. Whether you're a beginner looking to start your first algae project or an established operation seeking to improve your yields, our tailored advice and hands-on support will help you achieve your goals in this exciting and rapidly evolving field.",
+            },
+            {
+                title: "Prototyping Lab",
+                icon: "🔬",
+                description: "Rapid prototyping and product development services for innovative ideas and solutions.",
+                fullDescription: "Our Prototyping Lab is a state-of-the-art facility designed to bring ideas to life quickly and efficiently. We offer a wide range of rapid prototyping services, including 3D printing, CNC machining, laser cutting, and electronics assembly. Our team of skilled engineers and designers work closely with clients to transform concepts into tangible prototypes, enabling faster iteration and product development cycles. Whether you're a startup looking to create a proof-of-concept, an established company developing new products, or an inventor with a groundbreaking idea, our Prototyping Lab provides the tools, expertise, and support you need to turn your vision into reality. We specialize in various industries, including consumer electronics, medical devices, automotive parts, and more, ensuring that your prototype meets the highest standards of quality and functionality.",
+            },
+        ];
+
+        function createSkillCard(skill) {
+            return `
+                <div class="skill-card">
+                    <div class="skill-icon">${skill.icon}</div>
+                    <h4>${skill.title}</h4>
+                    <p>${skill.shortDescription}</p>
+                    <button class="expand-button" data-skill="${skill.title}">▼</button>
+                </div>
+            `;
+        }
+
+        function createExpandedSkillCard(skill) {
+            return `
+                <div class="expanded-skill-card">
+                    <button class="back-button">◀</button>
+                    <div class="skill-icon">${skill.icon}</div>
+                    <h4>${skill.title}</h4>
+                    <p>${skill.fullDescription}</p>
+                </div>
+            `;
+        }
+
+        function createVentureCard(venture) {
+            return `
+                <div class="venture-card">
+                    <div class="venture-icon">${venture.icon}</div>
+                    <h2>${venture.title}</h2>
+                    <p>${venture.description}</p>
+                    <button class="expand-button" data-venture="${venture.title}">▼</button>
+                    <div class="expanded-content" id="venture-content-${venture.title.replace(/\s+/g, '-').toLowerCase()}">
+                        <p>${venture.fullDescription}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const skillsGrid = document.getElementById('skills-grid');
+            const venturesGrid = document.getElementById('ventures-grid');
+            const navLinks = document.querySelectorAll('.nav-list a');
+            const pages = document.querySelectorAll('section');
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = {
+                about: document.getElementById('about-content'),
+                skills: document.getElementById('skills-content')
+            };
+            const contactForm = document.getElementById('contact-form');
+
+            skills.forEach(skill => {
+                skillsGrid.innerHTML += createSkillCard(skill);
+            });
+
+            ventures.forEach(venture => {
+                venturesGrid.innerHTML += createVentureCard(venture);
+            });
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetPage = link.getAttribute('data-page');
+                    pages.forEach(page => {
+                        page.style.display = page.id === targetPage ? 'block' : 'none';
+                    });
+                });
+            });
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tab = button.getAttribute('data-tab');
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    Object.values(tabContents).forEach(content => content.style.display = 'none');
+                    tabContents[tab].style.display = 'block';
+                });
+            });
+
+            skillsGrid.addEventListener('click', (e) => {
+                if (e.target.classList.contains('expand-button')) {
+                    const skillTitle = e.target.getAttribute('data-skill');
+                    const skill = skills.find(s => s.title === skillTitle);
+                    skillsGrid.innerHTML = createExpandedSkillCard(skill);
+                } else if (e.target.classList.contains('back-button')) {
+                    skillsGrid.innerHTML = '';
+                    skills.forEach(skill => {
+                        skillsGrid.innerHTML += createSkillCard(skill);
+                    });
+                }
+            });
+
+            venturesGrid.addEventListener('click', (e) => {
+                if (e.target.classList.contains('expand-button')) {
+                    const ventureTitle = e.target.getAttribute('data-venture');
+                    const contentId = `venture-content-${ventureTitle.replace(/\s+/g, '-').toLowerCase()}`;
+                    const content = document.getElementById(contentId);
+                    content.classList.toggle('expanded');
+                    e.target.textContent = content.classList.contains('expanded') ? '▲' : '▼';
+                }
+            });
+
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const formData = new FormData(contactForm);
+                console.log('Form submitted:', Object.fromEntries(formData));
+                contactForm.reset();
+                alert('Thank you for your message. I will get back to you soon!');
+            });
+        });
+    </script>
+</body>
+</html>
